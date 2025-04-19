@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    position: relative;
+    background-color:aliceblue
+  }
+
+  /* Make the canvas fill the whole background */
+  #sketch-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Ensure canvas stays behind other content */
+  }
+
+  /* Navbar is above everything else */
+  .navbar {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background-color:rgb(240, 255, 255);
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Main content area */
+  .container {
+    position: relative;
+    z-index: 1;
+    padding-top: 100px; /* Some padding for the content */
+    text-align: center;
+  }
+
+  /* Styling the buttons */
+  .btn {
+    margin: 10px;
+    padding: 15px 20px;
+    font-size: 1.5rem;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+  }
+
+  .back-btn {
+    margin-top: 20px;
+  }
+
+  /* Custom slider styling */
+.form-range::-webkit-slider-thumb {
+  background: #28a745;
+}
+
+.form-range::-moz-range-thumb {
+  background: #28a745;
+}
+
+.form-range::-ms-thumb {
+  background: #28a745;
+}
+
+/* Control panel styling */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 12px 12px 0 0 !important;
+}
+
+/* Badge styling for percentages */
+.badge {
+  min-width: 48px;
+  font-size: 0.85rem;
+  border-radius: 12px; /* Rounded pill shape */
+  padding: 5px 8px;    /* More padding for better appearance */
+  background-color: #5c8d89 !important; /* Forest green color - override Bootstrap's bg-primary */
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon styling */
+.bi {
+  color: #212529;
+}
+
+/* Make sliders more visible against potential background animations */
+.form-range {
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
