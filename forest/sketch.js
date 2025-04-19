@@ -16,50 +16,18 @@ function setup() {
 
 function draw() {
   background(255);
-  push();
-
-  translate(width / 2, height);
-  let baseLength = parseFloat(document.getElementById('rustleSlider').value);
-  let birbs = parseFloat(document.getElementById('birdSlider').value);
-  branch(height / 4, Math.floor((baseLength) * 12),30);
-  translate(width / 3, height/4);
-  branch(height / 5, Math.floor((baseLength) * 12),30);
-  pop();
-
   
-
-  for (let i = 0; i < birds.length; i++) {
+  for (let i = birds.length-1; i >= 0; i--) {
     birds[i].fly();
     birds[i].display();
+    if(birds[i].y < 10 || birds[i].x > width){
+      birds.splice(i,1);
+    }
+  console.log("length",birds.length);
 }
 }
 
-function branch(len, iter, angle) {
-  if (iter === 0) {
-    // Draw a petal at the end
-    noStroke();
-    fill(100, 200, 150, 180);
-    ellipse(0, 0, 50, 50);
-    return;
-  }
 
-  // Draw branch
-  stroke(130, 49, 43);
-  strokeWeight(map(iter, 0, 15, 1, 50));
-  line(0, 0, 0, -len);
-  translate(0, -len);
-
-  // Continue branching
-  push();
-  rotate(angle);
-  branch(len * 0.7, iter - 1, angle);
-  pop();
-
-  push();
-  rotate(-angle);
-  branch(len * 0.7, iter - 1, angle);
-  pop();
-}
 
 class Bird {
   constructor(x,y) {
