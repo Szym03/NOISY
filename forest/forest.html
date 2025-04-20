@@ -32,7 +32,7 @@
   </nav>
 
   <div class="container mt-5">
-    <h1 class="mt-5">Sounds of the Forest</h1>
+    <h1 class="mt-5" style="color: #c9c8fa">Sounds of the Forest</h1>
   
     <!-- Buttons -->
     <div id="app" class="d-flex justify-content-center mt-3">
@@ -40,6 +40,7 @@
         class="btn btn-success rounded-circle d-flex justify-content-center align-items-center"
         style="width: 80px; height: 80px;">
         <i class="bi bi-play" style="font-size: 2.5rem;"></i>
+        <span class="spinner hidden" id="startSpinner"></span>
       </button>
       <button id="stopButton" class="btn btn-danger rounded-circle d-flex justify-content-center align-items-center"
         style="width: 80px; height: 80px;" disabled>
@@ -48,7 +49,7 @@
     </div>
   
     <!-- Sound Control Panel -->
-    <div class="card mt-4 bg-light bg-opacity-75">
+    <div class="card mt-4" style="background-color: rgba(248, 249, 250, 0.4);">
       <div class="card-header">
         <h5 class="mb-0">Customize Forest Sounds</h5>
       </div>

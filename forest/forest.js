@@ -1,6 +1,8 @@
 import { Csound } from 'https://cdn.jsdelivr.net/npm/@csound/browser@6.18.7/dist/csound.min.js';
 
 document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("startButton").disabled = true;
+    document.getElementById("startSpinner").classList.remove("hidden");
     document.getElementById("startButton").addEventListener("click", startCsound);
     document.getElementById("stopButton").addEventListener("click", stopCsound);
     // Get slider elements
@@ -47,71 +49,69 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let csound = null;
+let csdText = null;
+let csoundReady = false;
+
+window.addEventListener("load", () => {
+    initCsound();
+});
 
 async function startCsound() {
-    // If already started, do nothing.
-    if (csound) return;
+    if (!csoundReady || !csound) {
+        console.warn("Csound is not ready yet.");
+        return;
+    }
 
-    console.log("Starting Csound...");
+    await csound.start();
 
-    // Initialize the Csound engine.
+    document.getElementById("volumeSlider").addEventListener("input", async (evt) => {
+        const linearValue = parseFloat(evt.target.value);
+        const logValue = Math.pow(linearValue, 2);
+        await csound.setControlChannel('globalVolume', logValue);
+        console.log("Volume set to:", logValue);
+    });
+
+    document.getElementById("stopButton").disabled = false;
+    document.getElementById("startButton").disabled = true;
+}
+
+async function initCsound() {
+    if (csoundReady) return;
+
+    console.log("Preloading Csound...");
+
     csound = await Csound();
 
     try {
-        // Fetch your Csound file 
+        // Load and store CSD
         const response = await fetch('forest.csd');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        csdText = await response.text();
+
+        // Preload audio files into Csound FS
+        const files = ['ambience.wav', 'stream.wav', 'wind.wav', 'leaves.wav'];
+        for (const file of files) {
+            const wavResp = await fetch(`audio/${file}`);
+            if (!wavResp.ok) throw new Error(`Audio load failed: ${wavResp.status}`);
+            const wavArray = new Uint8Array(await wavResp.arrayBuffer());
+            await csound.fs.writeFile(`/${file}`, wavArray);
         }
-        const csdText = await response.text();
-
-        //Using FS to create an array from the .wav and place it in virtual file system
-        let wavResp = await fetch('audio/ambience.wav');
-        if (!wavResp.ok) throw new Error(`Audio load failed: ${wavResp.status}`);
-        let wavArray = new Uint8Array(await wavResp.arrayBuffer());
-        await csound.fs.writeFile('/ambience.wav', wavArray);
-        
-        wavResp = await fetch('audio/stream.wav');
-        if (!wavResp.ok) throw new Error(`Audio load failed: ${wavResp.status}`);
-        wavArray = new Uint8Array(await wavResp.arrayBuffer());
-        await csound.fs.writeFile('/stream.wav', wavArray);
-
-        wavResp = await fetch('audio/wind.wav');
-        if (!wavResp.ok) throw new Error(`Audio load failed: ${wavResp.status}`);
-        wavArray = new Uint8Array(await wavResp.arrayBuffer());
-        await csound.fs.writeFile('/wind.wav', wavArray);
-
-        wavResp = await fetch('audio/leaves.wav');
-        if (!wavResp.ok) throw new Error(`Audio load failed: ${wavResp.status}`);
-        wavArray = new Uint8Array(await wavResp.arrayBuffer());
-        await csound.fs.writeFile('/leaves.wav', wavArray);
-
 
         await csound.compileCsdText(csdText);
-
         await csound.setControlChannel('globalVolume', 0.25);
 
-        //globalVolume
-        document.getElementById("volumeSlider").addEventListener("input", async (evt) => {
-            const linearValue = parseFloat(evt.target.value);
-            const logValue = Math.pow(linearValue, 2);
-            await csound.setControlChannel('globalVolume', logValue);
-            console.log("Volume set to:", logValue);
-        });
-
-        // ADDED: Forest sound slider Csound control setup
-        // Now that Csound is initialized, set up the forest sound parameter control
         setupForestSoundControls();
 
-        await csound.start();
-
-        // Enable the Stop button and disable the Start button.
-        document.getElementById("stopButton").disabled = false;
-        document.getElementById("startButton").disabled = true;
-    } catch (error) {
-        console.error("Error loading Csound file:", error);
+        csoundReady = true;
+        console.log("Csound preloaded and ready.");
+        
+        document.getElementById("startButton").disabled = false;
+        document.getElementById("startSpinner").classList.add("hidden");
+    } catch (err) {
+        console.error("Error during Csound initialization:", err);
     }
 }
+
 
 //Function to set up the forest sound controls integration with Csound
 function setupForestSoundControls() {
@@ -171,9 +171,13 @@ async function stopCsound() {
         console.log("Stopping Csound...");
         await csound.stop(); // Stop the engine.
         csound = null;
+        csoundReady = false;
 
+        
+        initCsound();
         // Re-enable the Start button and disable the Stop button.
-        document.getElementById("startButton").disabled = false;
+        
         document.getElementById("stopButton").disabled = true;
+        document.getElementById("startSpinner").classList.remove("hidden");
     }
 }
