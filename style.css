@@ -51,19 +51,6 @@ body {
     margin-top: 20px;
   }
 
-  /* Custom slider styling */
-.form-range::-webkit-slider-thumb {
-  background:rgb(26, 95, 42);
-}
-
-.form-range::-moz-range-thumb {
-  background: #28a745;
-}
-
-.form-range::-ms-thumb {
-  background: #28a745;
-}
-
 /* Control panel styling */
 .card {
   border-radius: 12px;

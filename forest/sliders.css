@@ -1,0 +1,12 @@
+  /* Custom slider styling */
+  .form-range::-webkit-slider-thumb {
+    background:rgb(26, 95, 42);
+  }
+  
+  .form-range::-moz-range-thumb {
+    background:rgb(26, 95, 42);
+  }
+  
+  .form-range::-ms-thumb {
+    background:rgb(26, 95, 42);
+  }
