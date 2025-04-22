@@ -6,16 +6,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("startButton").addEventListener("click", startCsound);
     document.getElementById("stopButton").addEventListener("click", stopCsound);
     // Get slider elements
-    const birdSlider = document.getElementById('birdSlider');
-    const windSlider = document.getElementById('windSlider');
+    const fanSlider = document.getElementById('fanSlider');
+    const planeSlider = document.getElementById('planeSlider');
     const streamSlider = document.getElementById('streamSlider');
     const rustleSlider = document.getElementById('rustleSlider');
 
     // Get value display elements
-    const birdValue = document.getElementById('birdValue');
-    const windValue = document.getElementById('windValue');
-    const streamValue = document.getElementById('streamValue');
-    const rustleValue = document.getElementById('rustleValue');
+    const fanValue = document.getElementById('fanValue');
+    const planeValue = document.getElementById('planeValue');
+    const acunitValue = document.getElementById('acunitValue');
+    const trainValue = document.getElementById('trainValue');
 
     // Function to update slider value displays
     function updateSliderDisplay(slider, display) {
@@ -24,27 +24,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Initial value display
-    updateSliderDisplay(birdSlider, birdValue);
-    updateSliderDisplay(windSlider, windValue);
-    updateSliderDisplay(streamSlider, streamValue);
-    updateSliderDisplay(rustleSlider, rustleValue);
+    updateSliderDisplay(fanSlider, fanValue);
+    updateSliderDisplay(planeSlider, planeValue);
+    updateSliderDisplay(acunitSlider, acunitValue);
+    updateSliderDisplay(trainSlider, trainValue);
 
     // Simple display updates (without Csound interaction yet)
     // These will run before Csound is initialized
-    birdSlider.addEventListener('input', () => {
-        updateSliderDisplay(birdSlider, birdValue);
+    fanSlider.addEventListener('input', () => {
+        updateSliderDisplay(fanSlider, fanValue);
     });
 
-    windSlider.addEventListener('input', () => {
-        updateSliderDisplay(windSlider, windValue);
+    planeSlider.addEventListener('input', () => {
+        updateSliderDisplay(planeSlider, planeValue);
     });
 
-    streamSlider.addEventListener('input', () => {
-        updateSliderDisplay(streamSlider, streamValue);
+    acunitSlider.addEventListener('input', () => {
+        updateSliderDisplay(acunitSlider, acunitValue);
     });
 
-    rustleSlider.addEventListener('input', () => {
-        updateSliderDisplay(rustleSlider, rustleValue);
+    trainSlider.addEventListener('input', () => {
+        updateSliderDisplay(trainSlider, trainValue);
     });
 });
 
@@ -89,7 +89,7 @@ async function initCsound() {
         csdText = await response.text();
 
         // Preload audio files into Csound FS
-        const files = ['ambience.wav', 'stream.wav', 'wind.wav', 'leaves.wav'];
+        const files = ['fan.wav', 'plane.wav','train.wav','acunit.wav'];
         for (const file of files) {
             const wavResp = await fetch(`audio/${file}`);
             if (!wavResp.ok) throw new Error(`Audio load failed: ${wavResp.status}`);
@@ -119,38 +119,38 @@ function setupForestSoundControls() {
     if (!csound) return;
 
     // Get all forest sound sliders
-    const forestControls = [
+    const machanicalControls = [
         {
-            slider: document.getElementById('birdSlider'),
-            channel: 'birdLevel',
-            display: document.getElementById('birdValue')
+            slider: document.getElementById('fanSlider'),
+            channel: 'fanLevel',
+            display: document.getElementById('fanValue')
         },
         {
-            slider: document.getElementById('windSlider'),
-            channel: 'windLevel',
-            display: document.getElementById('windValue')
+            slider: document.getElementById('planeSlider'),
+            channel: 'planeLevel',
+            display: document.getElementById('planeValue')
         },
         {
-            slider: document.getElementById('streamSlider'),
-            channel: 'streamLevel',
-            display: document.getElementById('streamValue')
+            slider: document.getElementById('acunitSlider'),
+            channel: 'acunitLevel',
+            display: document.getElementById('acunitValue')
         },
         {
-            slider: document.getElementById('rustleSlider'),
-            channel: 'rustleLevel',
-            display: document.getElementById('rustleValue')
+            slider: document.getElementById('trainSlider'),
+            channel: 'trainLevel',
+            display: document.getElementById('trainValue')
         }
     ];
 
     // Set initial values in Csound
-    forestControls.forEach(async control => {
+    machanicalControls.forEach(async control => {
         const value = parseFloat(control.slider.value);
         await csound.setControlChannel(control.channel, value);
         console.log(`Initial ${control.channel} set to:`, value);
     });
 
     // Set up event listeners to update Csound parameters when sliders change
-    forestControls.forEach(control => {
+    machanicalControls.forEach(control => {
         control.slider.addEventListener('input', async (evt) => {
             const value = parseFloat(evt.target.value);
 
