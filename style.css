@@ -6,14 +6,15 @@ body {
     background-color:aliceblue
   }
 
-  /* Make the canvas fill the whole background */
   #sketch-container {
-    position: absolute;
+    position: fixed;    /* pinned to the viewport */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Ensure canvas stays behind other content */
+    width: 100vw;       /* 100% of the viewport width */
+    height: 100vh;      /* 100% of the viewport height */
+    z-index: -1;        /* behind all normal (z ≥ 0) UI */
+    overflow: hidden;   /* no scrollbars */
+    pointer-events: none; /* clicks “fall through” to your buttons */
   }
 
   /* Navbar is above everything else */
