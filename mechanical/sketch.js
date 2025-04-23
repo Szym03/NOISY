@@ -76,7 +76,7 @@ function draw() {
   buffer.updatePixels();
 
   // Apply gentle blur for soft edges
-  buffer.filter(BLUR, 1);
+  buffer.filter(BLUR, 0);
 
   // Stretch buffer to fill screen
   image(buffer, 0, 0, width, height);
