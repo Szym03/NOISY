@@ -1,41 +1,155 @@
-let pg;
-let res = 5; // resolution factor: higher number = lower resolution
+let cols, rows;
+let scl = 100;           
+let flowfield = [];
+let zoff = 0;
+
+const numParticles = 200; 
+let particles = [];
 
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight);
   canvas.parent('sketch-container');
-  frameRate(30);
-  
-  // Create an off-screen graphics buffer at reduced resolution
-  pg = createGraphics(floor(windowWidth / res), floor(windowHeight / res));
-  pg.pixelDensity(1);  // Ensure performance by setting pixel density to 1
-  noSmooth();          // Disable smoothing on main canvas
-  pg.noSmooth();       // Disable smoothing on the graphics buffer
+  canvas.style('position', 'fixed');
+  canvas.style('top', '0');
+  canvas.style('left', '0');
+  canvas.style('width', '100vw');
+  canvas.style('height', '100vh');
+  canvas.style('z-index', '-1');
+  canvas.style('pointer-events', 'none');
+  createCanvas(windowWidth, windowHeight);
+  smooth();                   // enable antialiasing
+  strokeCap(ROUND);           // round line ends
+
+  cols = floor(width / scl);
+  rows = floor(height / scl);
+  flowfield = new Array(cols * rows);
+
+  // initialize particles
+  for (let i = 0; i < numParticles; i++) {
+    particles.push(new Particle());
+  }
+
+  background(23, 10, 74);
 }
 
 function draw() {
-    pg.loadPixels();
-    let t = frameCount * 0.004; // time component for animation
-    for (let x = 0; x < pg.width; x++) {
-      for (let y = 0; y < pg.height; y++) {
-        let noiseValue = noise(x * 0.02, y * 0.02, t) * 255;
-        let index = (x + y * pg.width) * 4;
-        pg.pixels[index] = noiseValue;
-        pg.pixels[index + 1] = noiseValue;
-        pg.pixels[index + 2] = noiseValue;
-        pg.pixels[index + 3] = 255;
-      }
-    }
-    pg.updatePixels();
-    image(pg, 0, 0, width, height);
+  // fade old trails quickly so lines vanish
+  background(23, 10, 74, 50);
 
-    fill(255, 105, 180, 50); // RGBA (R=255, G=105, B=180, A=100 for transparency)
-    rect(0, 0, width, height);
+  // rebuild flow field with finer increments for smoother curves
+  let yoff = 0;
+  for (let y = 0; y < rows; y++) {
+    let xoff = 0;
+    for (let x = 0; x < cols; x++) {
+      let index = x + y * cols;
+      let angle = noise(xoff, yoff, zoff) * TWO_PI * 4;
+      let v = p5.Vector.fromAngle(angle);
+      v.setMag(1);
+      flowfield[index] = v;
+      xoff += 0.05;
+    }
+    yoff += 0.05;
   }
+  zoff += 0.001;
+
+  // update & draw particles
+  for (let p of particles) {
+    p.follow(flowfield);
+    p.update();
+    p.edges();
+    p.show();
+    p.life--;
+    if (p.life <= 0) {
+      p.reset();
+    }
+  }
+}
+
+class Particle {
+  constructor() {
+    this.vel = createVector();
+    this.acc = createVector();
+    this.maxSpeed = 2;
+    this.reset();
+  }
+
+  reset() {
+    // new random position + lifetime
+    this.pos = createVector(random(width), random(height));
+    this.prevPos = this.pos.copy();
+    this.life = floor(random(60, 120));
+
+    // zero out motion so you don’t get one giant spur
+    this.vel.set(0, 0);
+    this.acc.set(0, 0);
+  }
+
+  follow(flow) {
+    // compute which cell 
+    let x = floor(this.pos.x / scl);
+    let y = floor(this.pos.y / scl);
+
+    // clamp to valid indices
+    x = constrain(x, 0, cols - 1);
+    y = constrain(y, 0, rows - 1);
+
+    let index = x + y * cols;
+    let force = flow[index];
+    this.applyForce(force);
+  }
+
+  applyForce(f) {
+    this.acc.add(f);
+  }
+
+  update() {
+    this.prevPos.set(this.pos);
+    this.vel.add(this.acc);
+    this.vel.limit(this.maxSpeed);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+  }
+
+  show() {
+    let halfLife = 60;
+    let alpha;
   
+    if (this.life > halfLife) {
+      // Fading in
+      alpha = map(this.life, 120, halfLife, 0, 255);
+    } else {
+      // Fading out
+      alpha = map(this.life, halfLife, 0, 255, 0);
+    }
+  
+    stroke(227, 237, 38, alpha);
+    strokeWeight(3);
+    line(this.prevPos.x, this.prevPos.y, this.pos.x, this.pos.y);
+  }
+
+  edges() {
+    let wrapped = false;
+
+    if (this.pos.x > width)  { this.pos.x = 0; wrapped = true; }
+    if (this.pos.x < 0)      { this.pos.x = width; wrapped = true; }
+    if (this.pos.y > height) { this.pos.y = 0; wrapped = true; }
+    if (this.pos.y < 0)      { this.pos.y = height; wrapped = true; }
+
+    // if we did teleport, reset prevPos so no line is drawn across
+    if (wrapped) {
+      this.prevPos = this.pos.copy();
+    }
+}
+}
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  // Also resize the off-screen buffer accordingly
-  pg.resizeCanvas(floor(windowWidth / res), floor(windowHeight / res));
+  cols = floor(width / cellSize);
+  rows = floor(height / cellSize);
+  cells = new Float32Array(cols * rows);
+  nextCells = new Float32Array(cols * rows);
+  for (let i = 0; i < cells.length; i++) {
+    cells[i] = random() < 0.1 ? 1 : 0;
+  }
+  buffer.resizeCanvas(cols, rows);
 }
