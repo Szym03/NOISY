@@ -69,7 +69,7 @@ class Particle {
   constructor() {
     this.vel = createVector();
     this.acc = createVector();
-    this.maxSpeed = 2;
+    this.maxSpeed = 0.5;
     this.reset();
   }
 
