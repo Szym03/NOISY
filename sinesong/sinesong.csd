@@ -20,7 +20,7 @@ giArr2[] fillarray 220.00, 261.63, 293.66, 329.63, 392.00
 giArr3[] fillarray 440.00, 523.25, 587.33, 659.25, 784.00
 instr 1 ; notes 
   kVolume chnget "globalVolume"
-  kenv linen 1, p3/2, p3, p3/2
+  kenv linen 0.5, p3/2, p3, p3/2
   asig oscili kenv, p4
   outs asig * p5 * kVolume, asig *(1 - p5)*kVolume
   gaRvbSendL    =         gaRvbSendL + (asig * 0.9)
