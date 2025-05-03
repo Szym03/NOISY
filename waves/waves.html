@@ -18,15 +18,25 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light position-relative">
     <div class="container-fluid">
+      <!-- Left: Brand -->
       <a class="navbar-brand" href="../index.html">
-        <img src="/images/equalizer.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+        <img src="/images/equalizer.png" width="30" height="30" class="d-inline-block align-text-top">
         <strong>Noisy</strong>
       </a>
+
+      
+      <div id="timerContainer" class="position-absolute start-50 translate-middle-x d-flex align-items-center">
+        <!-- timer.js will populate here -->
+      </div>
+
+      <!-- Right: Volume Slider -->
       <div class="d-flex align-items-center ms-auto">
-        <label for="volumeSlider" class="me-2 mb-0">Volume</label>
-        <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.5" class="form-range" style="width: 150px;">
+        <label for="volumeSlider" class="me-2 mb-0">Vol</label>
+        <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.5" 
+               class="form-range"
+               style="width: 130px; height: 0.5rem; accent-color: #4a90e2; padding: 0;">
       </div>
     </div>
   </nav>
