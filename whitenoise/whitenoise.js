@@ -1,8 +1,10 @@
 import { Csound } from 'https://cdn.jsdelivr.net/npm/@csound/browser@6.18.7/dist/csound.min.js';
+import { initTimer } from '../timer.js'; 
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("startButton").addEventListener("click", startCsound);
     document.getElementById("stopButton").addEventListener("click", stopCsound);
+    initTimer(stopCsound); 
 });
 
 let csound = null;
