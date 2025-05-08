@@ -120,3 +120,43 @@ body {
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
+/* General body background and text */
+.dark-mode {
+  background-color: #121212 !important;
+  color: #e0e0e0 !important;
+}
+
+/* Navbar */
+.dark-mode .navbar {
+  background-color: #1c1c1c !important;
+  color: #e0e0e0 !important;
+}
+
+.dark-mode .navbar a,
+.dark-mode .navbar-brand {
+  color: #e0e0e0 !important;
+}
+
+/* Cards */
+.dark-mode .card {
+  background-color: #1e1e1e !important;
+  color: #ccc !important;
+  border-color: #333 !important;
+}
+
+/* Buttons */
+.dark-mode .btn-outline-secondary {
+  background-color: #2a2a2a !important;
+  color: #ccc !important;
+  border-color: #444 !important;
+}
+
+.dark-mode .btn-outline-secondary:hover {
+  background-color: #3a3a3a !important;
+  color: white !important;
+}
+
+.dark-mode #darkModeIcon {
+  color: white;
+}
