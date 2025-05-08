@@ -22,9 +22,9 @@ a1w,a2w diskin2 "plane.wav",1,0,1
 a1s,a2s diskin2 "acunit.wav",1,0,1
 a1l,a2l diskin2 "train.wav",1,0,1
 asig noise 0.5, 0
-amix1 = a1*kFan+a1w*kPlane+a1s*kAc+a1l*kTrain
-amix2 = a2*kFan+a2w*kPlane+a2s*kAc+a2l*kTrain
-outs amix1*kVolume, amix2*kVolume
+amix1 = a1*kFan+a1w*kPlane+a1s*kAc*2+a1l*kTrain
+amix2 = a2*kFan+a2w*kPlane+a2s*kAc*2+a2l*kTrain
+outs amix1*kVolume*3, amix2*kVolume*3
 endin
 
 
