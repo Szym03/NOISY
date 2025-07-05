@@ -93,7 +93,7 @@ async function initCsound() {
         // Preload audio files into Csound FS
         const files = ['fan.wav', 'plane.wav','train.wav','acunit.wav'];
         for (const file of files) {
-            const wavResp = await fetch(`audio/${file}`);
+            const wavResp = await fetch(`./mechanical/audio/${file}`);
             if (!wavResp.ok) throw new Error(`Audio load failed: ${wavResp.status}`);
             const wavArray = new Uint8Array(await wavResp.arrayBuffer());
             await csound.fs.writeFile(`/${file}`, wavArray);
