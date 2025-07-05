@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.toggle('dark-mode');
   
       const isDark = document.body.classList.contains('dark-mode');
-      logo.src = isDark ? '/images/equalizerwhite.png' : '/images/equalizer.png';
+      logo.src = isDark ? 'images/equalizerwhite.png' : 'images/equalizer.png';
   
       // Switch icon classes
       icon.className = isDark ? 'bi bi-brightness-high' : 'bi bi-moon-stars-fill';
