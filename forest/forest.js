@@ -93,7 +93,7 @@ async function initCsound() {
         // Preload audio files into Csound FS
         const files = ['ambience.wav', 'stream.wav', 'wind.wav', 'leaves.wav'];
         for (const file of files) {
-            const wavResp = await fetch(`./forest/audio/${file}`);
+            const wavResp = await fetch(`./audio/${file}`);
             if (!wavResp.ok) throw new Error(`Audio load failed: ${wavResp.status}`);
             const wavArray = new Uint8Array(await wavResp.arrayBuffer());
             await csound.fs.writeFile(`/${file}`, wavArray);
