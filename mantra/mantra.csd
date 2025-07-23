@@ -73,14 +73,14 @@ instr 3; percussive
 	anoisef lowpass2 anoise, 8000*1-kamp, 0
 	asig comb anoisef, 1, 0.2,-0.2
 	
-	aoutl  = asig*0.1*gkVolume
-	aoutr  = asig*(1-kpan)*0.1*gkVolume
+	aoutl  = asig*0.1
+	aoutr  = asig*(1-kpan)*0.1
 
 	
-	gamixL = gamixL + aoutl*0.4*gkVolume
-	gamixR = gamixR + aoutr *0.4*gkVolume
-	gaRvbSendL = gaRvbSendL + aoutl*gkVolume
-   gaRvbSendR = gaRvbSendR + aoutr*gkVolume
+	gamixL = gamixL + aoutl*0.4
+	gamixR = gamixR + aoutr *0.4
+	gaRvbSendL = gaRvbSendL + aoutl
+   gaRvbSendR = gaRvbSendR + aoutr
    
 endin
 
@@ -91,7 +91,7 @@ instr 4 ;bass
 	asig oscil kenv*0.5, p4/2, giTri
 	gaRvbSendL = gaRvbSendL + asig*gkVolume
    gaRvbSendR = gaRvbSendR + asig*gkVolume
-	outs asig, asig*gkVolume
+	outs asig, asig
 endin
 
 instr 97;delay
