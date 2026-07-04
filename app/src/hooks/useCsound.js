@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { Csound } from "@csound/browser";
 
 export function useCsound(csdFile, audioFiles = []) {
@@ -8,7 +8,12 @@ export function useCsound(csdFile, audioFiles = []) {
   const [error, setError] = useState(null);
 
   const start = useCallback(async () => {
-    if (csoundRef.current) return;
+    // Already initialized once (just paused), resume instead of rebuilding
+    if (csoundRef.current) {
+      await csoundRef.current.resume();
+      setIsRunning(true);
+      return;
+    }
 
     setIsLoading(true);
     setError(null);
@@ -32,7 +37,13 @@ export function useCsound(csdFile, audioFiles = []) {
       }
       const csdText = await csdResponse.text();
 
-      await csound.compileCSD(csdText, 1); // mode 1 = compiling text, not a file path
+      if (!csdText.includes("<CsoundSynthesizer>")) {
+        throw new Error(
+          `${csdFile} did not return valid CSD content. Got: ${csdText.slice(0, 100)}`,
+        );
+      }
+
+      await csound.compileCSD(csdText, 1);
       await csound.start();
 
       csoundRef.current = csound;
@@ -46,13 +57,22 @@ export function useCsound(csdFile, audioFiles = []) {
 
   const stop = useCallback(async () => {
     if (!csoundRef.current) return;
-    await csoundRef.current.stop();
-    csoundRef.current = null;
+    await csoundRef.current.pause();
     setIsRunning(false);
   }, []);
 
   const setChannel = useCallback((channel, value) => {
     csoundRef.current?.setControlChannel(channel, value);
+  }, []);
+
+  // Fully tear down the engine when leaving the page
+  useEffect(() => {
+    return () => {
+      if (csoundRef.current) {
+        csoundRef.current.stop();
+        csoundRef.current = null;
+      }
+    };
   }, []);
 
   return { isRunning, isLoading, error, start, stop, setChannel };

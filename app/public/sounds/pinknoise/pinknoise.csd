@@ -13,7 +13,7 @@ instr 1
 kVolume chnget "globalVolume"
 kenv linseg 0, 1, 1
 asig pinker
-outs asig*kenv*kVolume, asig*kenv*kVolume
+out asig*kenv*kVolume, asig*kenv*kVolume
 endin
 
 
