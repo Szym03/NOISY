@@ -1,1 +1,1 @@
-Generative sound webapp. Visit [noisysound.art](https://noisysound.art/).
+Generative sound webapp. Visit [noisysound.xyz](https://noisysound.xyz/).
