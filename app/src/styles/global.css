@@ -7,7 +7,7 @@ body {
 }
 
 .welcome-heading {
-  font-family: monospace;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 32px;
   font-weight: bold;
   text-align: center;
@@ -15,9 +15,9 @@ body {
 }
 
 .welcome-subheading {
-  font-family: monospace;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 24px;
-  font-weight: normal;
+  font-weight: regular;
   text-align: center;
   margin-top: 0;
   margin-bottom: 32px;
@@ -51,4 +51,44 @@ body {
   color: white;
   font-size: 18px;
   cursor: pointer;
+}
+
+.category-row {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding: 0 24px 48px;
+}
+
+.category-column {
+  width: 280px;
+  padding: 24px;
+  border-radius: 16px;
+  color: #1a1a1a;
+}
+
+.category-title {
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  margin-bottom: 24px;
+}
+
+.sound-entry {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.sound-link {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: regular;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sound-description {
+  margin-bottom: 50px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  font-size: 14px;
+  margin-top: 4px;
 }

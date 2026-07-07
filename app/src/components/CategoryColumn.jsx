@@ -1,18 +1,21 @@
 import { Link } from "react-router-dom";
 
 function CategoryColumn({ category, sounds }) {
-  // TODO: decide how many to show (3) vs how many exist (sounds.length)
-  // const visible = sounds.slice(0, 3);
-  // const remaining = sounds.length - visible.length;
-
   return (
-    <div /* TODO: apply category.gradientFrom / gradientTo as a background */>
-      <h2>{category.title}</h2>
+    <div className="category-column"
+      style={{
+        background: `linear-gradient(to bottom, ${category.gradientFrom}, 20%, ${category.gradientTo})`,
+      }}>
+      <h2 className="category-title">{category.title}</h2>
 
-      {/* TODO: map `visible` sounds, each as a Link to `/sound/${sound.id}`
-          with sound.title and sound.description underneath */}
-
-      {/* TODO: if remaining > 0, render a "more..." link/expand control */}
+      {sounds.map((sound) => (
+        <div key={sound.id} className="sound-entry">
+          <Link to={`/sound/${sound.id}`} className="sound-link">
+            {sound.title} →
+          </Link>
+          <p className="sound-description">{sound.description}</p>
+        </div>
+      ))}
     </div>
   );
 }
