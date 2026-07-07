@@ -1,8 +1,11 @@
 function Navbar() {
   return (
-    <nav>
-      {/* TODO: logo, e.g. <span>noisy</span> */}
-      {/* TODO: two buttons on the right: help ("?") and menu (burger) */}
+    <nav className="navbar">
+      <span className="logo">noisy</span>
+      <div className="navbar-buttons">
+        <button className="icon-button">?</button>
+        <button className="icon-button">≡</button>
+      </div>
     </nav>
   );
 }

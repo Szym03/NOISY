@@ -9,8 +9,8 @@ function Home() {
 
   return (
     <div>
-      {/* TODO: welcome heading + "pick a sound!" subheading */}
-
+      <h1 className="welcome-heading">welcome to noisy</h1>
+      <p className="welcome-subheading">pick a sound!</p>
       <div>
         {/* TODO: map over categories, render a CategoryColumn per category,
             passing that category's sounds as a prop */}

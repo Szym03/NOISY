@@ -5,10 +5,13 @@ import SoundPage from "./pages/SoundPage";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/sound/:id" element={<SoundPage />} />
-    </Routes>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sound/:id" element={<SoundPage />} />
+      </Routes>
+    </>
   );
 }
 
