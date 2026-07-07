@@ -1,17 +1,20 @@
 import { Link } from "react-router-dom";
-import { sounds } from "../config/sounds";
+
+import { categories, sounds } from "../config/sounds";
+import CategoryColumn from "../components/CategoryColumn";
 
 function Home() {
+  // TODO: group `sounds` into arrays keyed by categoryId
+  // hint: categories.map(category => sounds.filter(s => s.categoryId === category.id))
+
   return (
     <div>
-      <h1>Noisy</h1>
-      <ul>
-        {sounds.map((sound) => (
-          <li key={sound.id}>
-            <Link to={`/sound/${sound.id}`}>{sound.title}</Link>
-          </li>
-        ))}
-      </ul>
+      {/* TODO: welcome heading + "pick a sound!" subheading */}
+
+      <div>
+        {/* TODO: map over categories, render a CategoryColumn per category,
+            passing that category's sounds as a prop */}
+      </div>
     </div>
   );
 }
