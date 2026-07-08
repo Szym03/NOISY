@@ -80,7 +80,7 @@ body {
 }
 
 .sound-link {
-  text-decoration: wavy underline;
+  text-decoration: #2b5e88 wavy underline;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: regular;
   color: inherit;
