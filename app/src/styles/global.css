@@ -86,6 +86,14 @@ body {
   color: inherit;
 }
 
+.sound-link:hover {
+  text-decoration: #0015ff wavy underline;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: regular;
+  color: inherit;
+  color: #029015;
+}
+
 .sound-description {
   margin-bottom: 40px;
   font-family: Helvetica, Arial, sans-serif;
