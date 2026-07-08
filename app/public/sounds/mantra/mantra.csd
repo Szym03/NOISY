@@ -77,8 +77,8 @@ instr 3; percussive
 	aoutr  = asig*(1-kpan)*0.1
 
 	
-	gamixL = gamixL + aoutl*0.4
-	gamixR = gamixR + aoutr *0.4
+	gamixL = gamixL + aoutl*0.2
+	gamixR = gamixR + aoutr *0.2
 	gaRvbSendL = gaRvbSendL + aoutl
    gaRvbSendR = gaRvbSendR + aoutr
    

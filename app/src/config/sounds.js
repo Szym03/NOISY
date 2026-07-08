@@ -32,4 +32,22 @@ export const sounds = [
     audioFiles: [],
     params: [],
   },
+  {
+    id: "sinesong",
+    title: "sine song",
+    categoryId: "musical",
+    csdFile: "/sounds/sinesong/sinesong.csd",
+    description:"Calming harmony as a result of simple algorithmic counterpoint of three sine waves.",
+    audioFiles: [],
+    params: [],
+  },
+  {
+    id: "mantra",
+    title: "mantra",
+    categoryId: "musical",
+    csdFile: "/sounds/mantra/mantra.csd",
+    description:"Blooming chords paired with soft bass and occasional percussive embelishments.",
+    audioFiles: [],
+    params: [],
+  },
 ];
