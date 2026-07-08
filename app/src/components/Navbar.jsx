@@ -1,7 +1,7 @@
 function Navbar() {
   return (
     <nav className="navbar">
-      <span className="logo">noisy</span>
+      <img src="/logo/noisy-logo.svg" className="logo-img"></img>
       <div className="navbar-buttons">
         <button className="icon-button">?</button>
         <button className="icon-button">≡</button>
