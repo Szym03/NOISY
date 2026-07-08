@@ -80,9 +80,9 @@ body {
 }
 
 .sound-link {
+  text-decoration: wavy underline;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: regular;
-  text-decoration: none;
   color: inherit;
 }
 
@@ -90,6 +90,7 @@ body {
   margin-bottom: 40px;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: lighter;
+  font-style: oblique;
   font-size: 14px;
   margin-top: 4px;
 }

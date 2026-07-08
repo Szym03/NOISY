@@ -11,7 +11,7 @@ function CategoryColumn({ category, sounds }) {
       {sounds.map((sound) => (
         <div key={sound.id} className="sound-entry">
           <Link to={`/sound/${sound.id}`} className="sound-link">
-            {sound.title} →
+            {sound.title}
           </Link>
           <p className="sound-description">{sound.description}</p>
         </div>
