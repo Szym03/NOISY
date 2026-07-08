@@ -91,14 +91,14 @@ instr 4 ;bass
 	asig oscil kenv*0.5, p4/2, giTri
 	gaRvbSendL = gaRvbSendL + asig*gkVolume
    gaRvbSendR = gaRvbSendR + asig*gkVolume
-	outs asig, asig
+	out asig, asig
 endin
 
 instr 97;delay
   	asigL, asigR init 0
 	asigL delay gadelayL+(asigL*0.7), 1
 	asigR delay gadelayR+(asigL*0.72), 0.5
- 		outs asigL, asigR
+ 		out asigL, asigR
  		clear gadelayL, gadelayR
 endin
 	
@@ -119,7 +119,7 @@ instr 99; resonant reverb
 	aright	comb gamixR, krvt, ilpt*.1
    gadelayL = gadelayL + aleft*0.5
    gadelayR = gadelayR + aright*0.5
-		outs   aleft, aright
+		out   aleft, aright
 		clear gamixL,gamixR	
  
 endin

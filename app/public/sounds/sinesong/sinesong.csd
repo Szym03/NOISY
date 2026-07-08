@@ -14,15 +14,17 @@ nchnls = 2
 ;reverb buffers
 gaRvbSendL init 0
 gaRvbSendR init 0 
+
 ;minor pentatonic arays
 giArr1[] fillarray 110.00, 130.81, 146.83, 164.81, 196.00
 giArr2[] fillarray 220.00, 261.63, 293.66, 329.63, 392.00
 giArr3[] fillarray 440.00, 523.25, 587.33, 659.25, 784.00
+
 instr 1 ; notes 
   kVolume chnget "globalVolume"
   kenv linen 0.2, p3/2, p3, p3/2
   asig oscili kenv, p4
-  outs asig * p5 * kVolume, asig *(1 - p5)*kVolume
+  out asig * p5 * kVolume, asig *(1 - p5)*kVolume
   gaRvbSendL    =         gaRvbSendL + (asig * 0.9)
   gaRvbSendR    =         gaRvbSendR + (asig * 0.9)
 endin
@@ -45,7 +47,7 @@ instr 3; reverb
 	kroomsize    init      0.99     
 	kHFDamp      init      0.9       
 aRvbL,aRvbR  freeverb  gaRvbSendL, gaRvbSendR,kroomsize,kHFDamp
-             outs      aRvbL, aRvbR
+             out      aRvbL, aRvbR
              clear     gaRvbSendL
              clear     gaRvbSendR
 endin

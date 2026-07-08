@@ -34,7 +34,7 @@ instr 1
 	gaRvbSendL = gaRvbSendL + al
 	gaRvbSendR = gaRvbSendR + ar
 
-	outs al,ar
+	out al,ar
 	
 	
 	
@@ -45,7 +45,7 @@ instr 2
 	kHFDamp      init      0.8      
 	
 	aRvbL,aRvbR  freeverb  gaRvbSendL, gaRvbSendR,kroomsize,kHFDamp
-				outs      aRvbL, aRvbR
+				out      aRvbL, aRvbR
 				clear     gaRvbSendL
 				clear 	  gaRvbSendR   
 endin
