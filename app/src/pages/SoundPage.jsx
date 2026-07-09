@@ -28,35 +28,37 @@ function SoundPage() {
 
   return (
     <div>
-      <h1>{sound.title}</h1>
+      <h1 class="sound-title">{sound.title}</h1>
 
       <div className="controls">
-        <button onClick={handleStart} disabled={isRunning || isLoading}>
+        <button className="play-pause" style={{ borderColor: "green" }} onClick={handleStart} disabled={isRunning || isLoading}>
           {isLoading ? "Loading..." : "Play"}
         </button>
-        <button onClick={stop} disabled={!isRunning}>
+        <button className="play-pause" style={{ borderColor: "red" }} onClick={stop} disabled={!isRunning}>
           Stop
         </button>
       </div>
 
       {error && <p className="error">{error}</p>}
-
-      <ParamSlider
-        label="Volume"
-        defaultValue={0.5}
-        onChange={(v) => setChannel("globalVolume", Math.pow(v, 2))}
-      />
-
-      {sound.params.map((p) => (
+      <div className="sliders">
         <ParamSlider
-          key={p.id}
-          label={p.label}
-          defaultValue={p.default}
-          onChange={(v) => setChannel(p.id, v)}
+          label="Volume"
+          defaultValue={0.5}
+          onChange={(v) => setChannel("globalVolume", Math.pow(v, 2))}
         />
-      ))}
+
+        {sound.params.map((p) => (
+          <ParamSlider
+            key={p.id}
+            label={p.label}
+            defaultValue={p.default}
+            onChange={(v) => setChannel(p.id, v)}
+          />
+        ))}
+      </div>
 
       <Link to="/">Back to home</Link>
+
     </div>
   );
 }

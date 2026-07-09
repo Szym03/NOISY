@@ -7,7 +7,7 @@ export const categories = [
 export const sounds = [
   {
     id: "whitenoise",
-    title: "white",
+    title: "white noise",
     categoryId: "basic-noise",
     csdFile: "/sounds/whitenoise/whitenoise.csd",
     description: "White noise is often used to mask other sounds and block distractions. If it sounds too harsh, try other colors.",
@@ -16,7 +16,7 @@ export const sounds = [
   },
   {
     id: "pinknoise",
-    title: "pink",
+    title: "pink noise",
     categoryId: "basic-noise",
     csdFile: "/sounds/pinknoise/pinknoise.csd",
     description: "Pink noise is white noise with less high frequencies, similar to the sound of a waterfall.",

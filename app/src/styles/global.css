@@ -102,3 +102,36 @@ body {
   font-size: 14px;
   margin-top: 4px;
 }
+
+.sound-title {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.sliders {
+  margin-top: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  font-style: oblique;
+  display: flex;
+  justify-content: center;
+}
+
+.param-slider {
+  display: flex;
+  flex-direction: column;
+}
+
+.play-pause {
+ border: dotted;
+ border-radius: 50%;
+ padding: 7px;
+ background-color: #ffffff00;
+}

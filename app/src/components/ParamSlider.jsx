@@ -11,7 +11,6 @@ function ParamSlider({ label, defaultValue = 0.5, onChange }) {
 
   return (
     <div className="param-slider">
-      <label>{label}</label>
       <input
         type="range"
         min="0"
@@ -20,7 +19,7 @@ function ParamSlider({ label, defaultValue = 0.5, onChange }) {
         value={value}
         onChange={handleChange}
       />
-      <span>{Math.round(value * 100)}%</span>
+      <label>{label} {Math.round(value * 100)}%</label>
     </div>
   );
 }
