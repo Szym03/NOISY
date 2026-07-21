@@ -27,6 +27,11 @@ export default function softmachines(p, env) {
     buffer = p.createGraphics(cols, rows);
     buffer.pixelDensity(1);
     buffer.noStroke();
+
+    // Read the pixel buffer once; draw() only writes to it (the smoothing
+    // lerp reads back our own previous writes, which stay in this array),
+    // so a GPU readback every frame would just cost FPS.
+    buffer.loadPixels();
   };
 
   p.draw = () => {
@@ -54,7 +59,6 @@ export default function softmachines(p, env) {
     [cells, nextCells] = [nextCells, cells];
 
     // Draw smoothed states into buffer
-    buffer.loadPixels();
     for (let x = 0; x < cols; x++) {
       for (let y = 0; y < rows; y++) {
         const idx = x + y * cols;
@@ -77,5 +81,6 @@ export default function softmachines(p, env) {
     p.resizeCanvas(env.container.clientWidth, env.container.clientHeight);
     seed();
     buffer.resizeCanvas(cols, rows);
+    buffer.loadPixels();
   };
 }

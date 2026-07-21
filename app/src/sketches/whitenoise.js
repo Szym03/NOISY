@@ -13,10 +13,13 @@ export default function whitenoise(p, env) {
     pg.pixelDensity(1);
     p.noSmooth();
     pg.noSmooth();
+
+    // Read the pixel buffer once; draw() only ever writes to it, so
+    // reading it back from the GPU every frame would just cost FPS.
+    pg.loadPixels();
   };
 
   p.draw = () => {
-    pg.loadPixels();
     const t = p.frameCount * 0.004;
     for (let x = 0; x < pg.width; x++) {
       for (let y = 0; y < pg.height; y++) {
@@ -36,5 +39,6 @@ export default function whitenoise(p, env) {
     const { clientWidth: w, clientHeight: h } = env.container;
     p.resizeCanvas(w, h);
     pg.resizeCanvas(p.floor(w / res), p.floor(h / res));
+    pg.loadPixels();
   };
 }

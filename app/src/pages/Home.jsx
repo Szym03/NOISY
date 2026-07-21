@@ -14,7 +14,8 @@ function Home() {
           );
           return (
             <CategoryColumn
-              key={category.id}
+              key=
+            {category.id}
               category={category}
               sounds={categorySounds}
             />

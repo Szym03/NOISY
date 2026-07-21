@@ -19,7 +19,21 @@ function P5Canvas({ sketch, getParam }) {
     };
     const instance = new p5((p) => sketch(p, env), container);
 
-    return () => instance.remove();
+    return () => {
+      // p5 v2 initializes asynchronously and remove() is a silent no-op
+      // until setup has finished, which would leak a forever-running
+      // instance (React StrictMode unmounts immediately after mount).
+      // Wait for setup to complete before tearing down.
+      let attempts = 100;
+      const tryRemove = () => {
+        if (instance._setupDone || instance.hitCriticalError || attempts-- <= 0) {
+          instance.remove();
+        } else {
+          setTimeout(tryRemove, 50);
+        }
+      };
+      tryRemove();
+    };
   }, [sketch]);
 
   return <div className="sketch-window" ref={containerRef} />;
