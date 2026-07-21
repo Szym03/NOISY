@@ -4,7 +4,7 @@ function CategoryColumn({ category, sounds }) {
   return (
     <div className="category-column"
       style={{
-        background: `linear-gradient(to bottom, ${category.gradientFrom}, 20%, ${category.gradientTo})`,
+        background: `linear-gradient(to bottom, ${category.gradientFrom} 20%, ${category.gradientTo})`,
       }}>
       <h2 className="category-title">{category.title}</h2>
 
