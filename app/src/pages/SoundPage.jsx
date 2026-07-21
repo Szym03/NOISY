@@ -1,7 +1,10 @@
+import { useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { sounds } from "../config/sounds";
 import { useCsound } from "../hooks/useCsound";
 import ParamSlider from "../components/ParamSlider";
+import P5Canvas from "../components/P5Canvas";
+import { sketches } from "../sketches";
 
 function SoundPage() {
   const { id } = useParams();
@@ -10,6 +13,17 @@ function SoundPage() {
     sound?.csdFile,
     sound?.audioFiles,
   );
+
+  // Live param values, readable by the p5 sketch every frame.
+  // Reset when navigating to a different sound.
+  const paramValues = useRef(null);
+  const paramsFor = useRef(null);
+  if (sound && paramsFor.current !== sound.id) {
+    paramsFor.current = sound.id;
+    paramValues.current = Object.fromEntries(
+      sound.params.map((p) => [p.id, p.default]),
+    );
+  }
 
   if (!sound) {
     return (
@@ -20,15 +34,25 @@ function SoundPage() {
     );
   }
 
+  function setParam(paramId, value) {
+    paramValues.current[paramId] = value;
+    setChannel(paramId, value);
+  }
+
   async function handleStart() {
     await start();
     setChannel("globalVolume", 0.25);
-    sound.params.forEach((p) => setChannel(p.id, p.default));
+    sound.params.forEach((p) => setChannel(p.id, paramValues.current[p.id]));
   }
 
   return (
-    <div>
-      <h1 class="sound-title">{sound.title}</h1>
+    <div key={sound.id}>
+      <h1 className="sound-title">{sound.title}</h1>
+
+      <P5Canvas
+        sketch={sketches[sound.id]}
+        getParam={(paramId) => paramValues.current[paramId] ?? 0}
+      />
 
       <div className="controls">
         <button className="play-pause" style={{ borderColor: "green" }} onClick={handleStart} disabled={isRunning || isLoading}>
@@ -52,7 +76,7 @@ function SoundPage() {
             key={p.id}
             label={p.label}
             defaultValue={p.default}
-            onChange={(v) => setChannel(p.id, v)}
+            onChange={(v) => setParam(p.id, v)}
           />
         ))}
       </div>

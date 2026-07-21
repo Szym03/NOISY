@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import { categories, sounds } from "../config/sounds";
 import CategoryColumn from "../components/CategoryColumn";
 

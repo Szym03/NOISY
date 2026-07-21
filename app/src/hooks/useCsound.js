@@ -65,15 +65,16 @@ export function useCsound(csdFile, audioFiles = []) {
     csoundRef.current?.setControlChannel(channel, value);
   }, []);
 
-  // Fully tear down the engine when leaving the page
+  // Fully tear down the engine when leaving the page or switching sounds
   useEffect(() => {
     return () => {
       if (csoundRef.current) {
         csoundRef.current.stop();
         csoundRef.current = null;
+        setIsRunning(false);
       }
     };
-  }, []);
+  }, [csdFile]);
 
   return { isRunning, isLoading, error, start, stop, setChannel };
 }
