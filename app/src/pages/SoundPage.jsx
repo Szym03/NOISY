@@ -94,8 +94,8 @@ function SoundPage() {
       />
 
       <div className="panels">
-        <div className="panel">
-          <h2 className="panel-title">Sound</h2>
+        <details className="panel" open>
+          <summary className="panel-title">Sound</summary>
           <div className="controls">
             <button className="play-pause" style={{ borderColor: "green" }} onClick={handleStart} disabled={isRunning || isLoading}>
               {isLoading ? "Loading..." : "Play"}
@@ -123,17 +123,17 @@ function SoundPage() {
               />
             ))}
           </div>
-        </div>
+        </details>
 
-        <div className="panel timer">
-          <h2 className="panel-title">Sleep Timer</h2>
+        <details className="panel timer" open>
+          <summary className="panel-title">Sleep Timer</summary>
           <div className="timer-display">{formatTime(secondsLeft)}</div>
           <div className="timer-buttons">
             <button className="timer-button" onClick={() => addTime(60)}>+1 min</button>
             <button className="timer-button" onClick={() => addTime(600)}>+10 min</button>
             <button className="timer-button" onClick={() => addTime(3600)}>+1 hr</button>
           </div>
-        </div>
+        </details>
       </div>
 
       <Link to="/">Back to home</Link>
