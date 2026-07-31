@@ -8,7 +8,6 @@ function Navbar() {
       </Link>
       <div className="navbar-buttons">
         <Link to="/about" className="icon-button">?</Link>
-        <button className="icon-button">≡</button>
       </div>
     </nav>
   );

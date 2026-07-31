@@ -33,7 +33,7 @@ function SoundPage() {
       }, 1000);
     }
     return () => clearTimeout(timeoutId);
-  }, [secondsLeft, isRunning]);
+  }, [secondsLeft, isRunning, stop]);
 
 
   function addTime(time) {
