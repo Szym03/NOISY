@@ -178,6 +178,25 @@ body {
   border: 1px solid #222222;
   border-radius: 20px;
   padding: 20px 28px;
+  interpolate-size: allow-keywords;
+}
+
+/* Animates the open/closed transition in browsers that support it
+   (Chrome/Edge); elsewhere it just falls back to an instant toggle. */
+.panel::details-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  height: 0;
+  transition:
+    height 0.25s ease,
+    content-visibility 0.25s ease allow-discrete;
+}
+
+.panel[open]::details-content {
+  height: auto;
 }
 
 .panel-title {

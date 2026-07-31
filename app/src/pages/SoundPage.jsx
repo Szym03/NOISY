@@ -125,7 +125,7 @@ function SoundPage() {
           </div>
         </details>
 
-        <details className="panel timer" open>
+        <details className="panel timer">
           <summary className="panel-title">Sleep Timer</summary>
           <div className="timer-display">{formatTime(secondsLeft)}</div>
           <div className="timer-buttons">

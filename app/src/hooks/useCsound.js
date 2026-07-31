@@ -3,6 +3,7 @@ import { Csound } from "@csound/browser";
 
 export function useCsound(csdFile, audioFiles = []) {
   const csoundRef = useRef(null);
+  const mountedRef = useRef(true);
   const [isRunning, setIsRunning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -46,6 +47,13 @@ export function useCsound(csdFile, audioFiles = []) {
       await csound.compileCSD(csdText, 1);
       await csound.start();
 
+      // The page may have been left while this was loading; don't leave
+      // an orphaned instance playing with nothing left to stop it.
+      if (!mountedRef.current) {
+        await csound.stop();
+        return;
+      }
+
       csoundRef.current = csound;
       setIsRunning(true);
     } catch (err) {
@@ -67,7 +75,9 @@ export function useCsound(csdFile, audioFiles = []) {
 
   // Fully tear down the engine when leaving the page or switching sounds
   useEffect(() => {
+    mountedRef.current = true;
     return () => {
+      mountedRef.current = false;
       if (csoundRef.current) {
         csoundRef.current.stop();
         csoundRef.current = null;
