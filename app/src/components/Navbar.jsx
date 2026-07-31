@@ -1,9 +1,13 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
   return (
     <nav className="navbar">
-      <img src="/logo/noisy-logo.svg" alt="noisy" className="logo-img" />
+      <Link to="/">
+        <img src="/logo/noisy-logo.svg" alt="noisy" className="logo-img" />
+      </Link>
       <div className="navbar-buttons">
-        <button className="icon-button">?</button>
+        <Link to="/about" className="icon-button">?</Link>
         <button className="icon-button">≡</button>
       </div>
     </nav>

@@ -56,7 +56,7 @@ function SoundPage() {
     return (
       <div>
         <p>Sound not found.</p>
-        <Link to="/">Back to home</Link>
+        <Link to="/" className="back-link">Back to home</Link>
       </div>
     );
   }
@@ -136,7 +136,7 @@ function SoundPage() {
         </details>
       </div>
 
-      <Link to="/">Back to home</Link>
+      <Link to="/" className="back-link">Back to home</Link>
 
     </div>
   );
