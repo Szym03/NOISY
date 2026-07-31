@@ -11,8 +11,8 @@ export default function sinesong(p, env) {
 
   class Particle {
     constructor() {
-      this.vel = p.createVector();
-      this.acc = p.createVector();
+      this.vel = p.createVector(0, 0);
+      this.acc = p.createVector(0, 0);
       this.maxSpeed = 0.5;
       this.reset();
     }

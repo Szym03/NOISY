@@ -145,8 +145,77 @@ body {
 }
 
 .play-pause {
- border: dotted;
- border-radius: 50%;
- padding: 7px;
- background-color: #ffffff00;
+  border: dotted;
+  border-radius: 50%;
+  padding: 7px;
+  background-color: #ffffff00;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.play-pause:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.play-pause:disabled {
+  cursor: not-allowed;
+}
+
+.panels {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #222222;
+  border-radius: 20px;
+  padding: 20px 28px;
+}
+
+.panel-title {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 16px;
+  margin: 0;
+}
+
+.timer {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  font-style: oblique;
+}
+
+.timer-display {
+  font-size: 20px;
+  text-align: center;
+}
+
+.timer-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.timer-button {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: regular;
+  font-style: oblique;
+  border: dotted;
+  border-radius: 50%;
+  padding: 10px 14px;
+  background-color: #ffffff00;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.timer-button:hover {
+  background-color: #e0e0e0;
 }

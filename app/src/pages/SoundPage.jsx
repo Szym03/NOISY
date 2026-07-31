@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { sounds } from "../config/sounds";
 import { useCsound } from "../hooks/useCsound";
@@ -16,6 +16,25 @@ function SoundPage() {
 
   // Sleep timer 
   const [secondsLeft, setSecondsLeft] = useState(null);
+
+  useEffect(() => {
+    if (secondsLeft === null) {
+      return;
+    }
+    if (secondsLeft === 0) {
+      stop();
+      setSecondsLeft(null);
+      return;
+    }
+    let timeoutId;
+    if (isRunning) {
+      timeoutId = setTimeout(() => {
+        addTime(-1);
+      }, 1000);
+    }
+    return () => clearTimeout(timeoutId);
+  }, [secondsLeft, isRunning]);
+
 
   function addTime(time) {
     setSecondsLeft(prev => (prev ?? 0) + time);
@@ -53,47 +72,68 @@ function SoundPage() {
     sound.params.forEach((p) => setChannel(p.id, paramValues.current[p.id]));
   }
 
+  function formatTime(totalSeconds) {
+    if (totalSeconds == null) {
+      return "--:--:--"
+    }
+
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds - hours * 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    return String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0")
+  }
+
   return (
     <div key={sound.id}>
       <h1 className="sound-title">{sound.title}</h1>
-
-       <div className="timer">
-          hours:minutes:seconds
-          <button className="timerButton" onClick={(v) => addTime(60)}> +1 min</button>
-          <button className="timerButton" onClick={(v) => addTime(600)}> +10 min</button>
-          <button className="timerButton" onClick={(v) => addTime(3600)}> +1 hr</button>
-        </div>
 
       <P5Canvas
         sketch={sketches[sound.id]}
         getParam={(paramId) => paramValues.current[paramId] ?? 0}
       />
 
-      <div className="controls">
-        <button className="play-pause" style={{ borderColor: "green" }} onClick={handleStart} disabled={isRunning || isLoading}>
-          {isLoading ? "Loading..." : "Play"}
-        </button>
-        <button className="play-pause" style={{ borderColor: "red" }} onClick={stop} disabled={!isRunning}>
-          Stop
-        </button>
-      </div>
+      <div className="panels">
+        <div className="panel">
+          <h2 className="panel-title">Sound</h2>
+          <div className="controls">
+            <button className="play-pause" style={{ borderColor: "green" }} onClick={handleStart} disabled={isRunning || isLoading}>
+              {isLoading ? "Loading..." : "Play"}
+            </button>
+            <button className="play-pause" style={{ borderColor: "red" }} onClick={stop} disabled={!isRunning}>
+              Stop
+            </button>
+          </div>
 
-      {error && <p className="error">{error}</p>}
-      <div className="sliders">
-        <ParamSlider
-          label="Volume"
-          defaultValue={0.5}
-          onChange={(v) => setChannel("globalVolume", Math.pow(v, 2))}
-        />
+          {error && <p className="error">{error}</p>}
 
-        {sound.params.map((p) => (
-          <ParamSlider
-            key={p.id}
-            label={p.label}
-            defaultValue={p.default}
-            onChange={(v) => setParam(p.id, v)}
-          />
-        ))}
+          <div className="sliders">
+            <ParamSlider
+              label="Volume"
+              defaultValue={0.5}
+              onChange={(v) => setChannel("globalVolume", Math.pow(v, 2))}
+            />
+
+            {sound.params.map((p) => (
+              <ParamSlider
+                key={p.id}
+                label={p.label}
+                defaultValue={p.default}
+                onChange={(v) => setParam(p.id, v)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="panel timer">
+          <h2 className="panel-title">Sleep Timer</h2>
+          <div className="timer-display">{formatTime(secondsLeft)}</div>
+          <div className="timer-buttons">
+            <button className="timer-button" onClick={() => addTime(60)}>+1 min</button>
+            <button className="timer-button" onClick={() => addTime(600)}>+10 min</button>
+            <button className="timer-button" onClick={() => addTime(3600)}>+1 hr</button>
+          </div>
+        </div>
       </div>
 
       <Link to="/">Back to home</Link>
