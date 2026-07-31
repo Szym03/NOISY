@@ -263,3 +263,19 @@ body {
 .back-link:hover {
   text-decoration: underline;
 }
+
+.about-text {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 24px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  line-height: 1.5;
+}
+
+.about-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px;
+}
