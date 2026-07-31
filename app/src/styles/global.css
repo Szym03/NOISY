@@ -1,0 +1,281 @@
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.logo-img {
+  height: 52px;
+  width: auto;
+  align-items: center;
+}
+
+.welcome-heading {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4px;
+  margin-top: 40px;
+}
+
+.welcome-subheading {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: regular;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 40px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #7AA3A0;
+}
+
+.navbar-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: black;
+  font-size: 30px;
+  font-family: Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.category-row {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding: 0 24px 48px;
+}
+
+.category-column {
+  width: 280px;
+  padding: 24px;
+  border-radius: 20px;
+  color: #1a1a1a;
+}
+
+.category-title {
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  margin-bottom: 40px;
+}
+
+.sound-entry {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.sound-link {
+  text-decoration: #286393 wavy underline;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: regular;
+  color: inherit;
+}
+
+.sound-link:hover {
+  text-decoration: #0015ff wavy underline;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: regular;
+  color: inherit;
+  color: #02450b;
+}
+
+.sound-description {
+  margin-bottom: 40px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  font-style: oblique;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.sound-title {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sketch-window {
+  width: min(720px, calc(100% - 48px));
+  height: 320px;
+  margin: 0 auto 24px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+.sketch-window canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.sliders {
+  margin-top: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  font-style: oblique;
+  display: flex;
+  justify-content: center;
+}
+
+.param-slider {
+  display: flex;
+  flex-direction: column;
+}
+
+.play-pause {
+  border: dotted;
+  border-radius: 50%;
+  padding: 7px;
+  background-color: #ffffff00;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.play-pause:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.play-pause:disabled {
+  cursor: not-allowed;
+}
+
+.panels {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #222222;
+  border-radius: 20px;
+  padding: 20px 28px;
+  interpolate-size: allow-keywords;
+  transition: width 0.25s ease;
+}
+
+/* Animates the open/closed transition in browsers that support it
+   (Chrome/Edge); elsewhere it just falls back to an instant toggle. */
+.panel::details-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    content-visibility 0.25s ease allow-discrete;
+}
+
+.panel[open]::details-content {
+  width: auto;
+  height: auto;
+}
+
+.panel-title {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 16px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.timer {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  font-style: oblique;
+}
+
+.timer-display {
+  font-size: 20px;
+  text-align: center;
+}
+
+.timer-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.timer-button {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: regular;
+  font-style: oblique;
+  border: dotted;
+  border-radius: 50%;
+  padding: 10px 14px;
+  background-color: #ffffff00;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.timer-button:hover {
+  background-color: #e0e0e0;
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 24px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  color: inherit;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.about-text {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 24px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  line-height: 1.5;
+}
+
+.about-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px;
+}
