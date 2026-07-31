@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { sounds } from "../config/sounds";
 import { useCsound } from "../hooks/useCsound";
@@ -13,6 +13,14 @@ function SoundPage() {
     sound?.csdFile,
     sound?.audioFiles,
   );
+
+  // Sleep timer 
+  const [secondsLeft, setSecondsLeft] = useState(null);
+
+  function addTime(time) {
+    setSecondsLeft(prev => (prev ?? 0) + time);
+  }
+
 
   // Live param values, readable by the p5 sketch every frame.
   // Reset when navigating to a different sound.
@@ -48,6 +56,13 @@ function SoundPage() {
   return (
     <div key={sound.id}>
       <h1 className="sound-title">{sound.title}</h1>
+
+       <div className="timer">
+          hours:minutes:seconds
+          <button className="timerButton" onClick={(v) => addTime(60)}> +1 min</button>
+          <button className="timerButton" onClick={(v) => addTime(600)}> +10 min</button>
+          <button className="timerButton" onClick={(v) => addTime(3600)}> +1 hr</button>
+        </div>
 
       <P5Canvas
         sketch={sketches[sound.id]}
